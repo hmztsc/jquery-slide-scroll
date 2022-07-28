@@ -1,41 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        a {
+            color: white;
+        }
+
+        section {
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body>
 
-  <section class="section blue" style="height:600px; background-color:blue;">
-  <a href="javascript:void(0)" onclick="scrollSlide($(this),'.section.green');" class="btn btn-light">Go To Green Section</a>
-  </section>
-  
-  <section class="section red" style="height:600px; background-color:red;">
-  <a href="javascript:void(0)" onclick="scrollSlide($(this),'.section.blue');" class="btn btn-light">Go To Blue Section</a>
-  </section>
-  
-  <section class="section green" style="height:600px; background-color:green;">
-  <a href="javascript:void(0)" onclick="scrollSlide($(this),'.section.red');" class="btn btn-light">Go To Red Section</a>
-  </section>
+    <section class="section blue" style="height:600px; background-color:blue;">
+        <a href="javascript:void(0)" data-scrolltarget=".red" class="btn btn-light scrollSlide">Go To Red
+            Section</a>
+    </section>
 
-  
-  <!-- jQuery -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script type="text/javascript">
-      var page = $("html, body");
-      function scrollSlide(start, end){
-          start.click(function() {
-              page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function(){
-                  page.stop();
-              });
+    <section class="section red" style="height:600px; background-color:red;">
+        <a href="javascript:void(0)" data-scrolltarget=".green" class="btn btn-light scrollSlide">Go To Green
+            Section</a>
+    </section>
 
-              page.animate({ scrollTop: $(end).position().top } , {duration: 0});
+    <section class="section green" style="height:600px; background-color:green;">
+        <a href="javascript:void(0)" data-scrolltarget=".blue" class="btn btn-light scrollSlide">Go To Blue
+            Section</a>
+    </section>
 
-              return false; 
-          });
-      }
-  </script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript">
+        $('.scrollSlide').click(function(){
+            let page = $("html");
+            let end = $(this).data('scrolltarget');
+            console.log(end);
+            console.log($(end).position().top);
+
+            page.on("scroll mousedown wheel DOMMouseScroll mousewheel keyup touchmove", function () {
+                page.stop();
+            });
+            page.animate({ scrollTop: $(end).position().top });
+        });
+    </script>
 </body>
+
 </html>
